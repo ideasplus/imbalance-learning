@@ -78,30 +78,30 @@ if __name__ == '__main__':
     from sklearn.model_selection import StratifiedKFold, RepeatedStratifiedKFold
 
     start_time = time.time()
-    dataset = fetch_datasets()['oil']
+    dataset = fetch_datasets()['satimage']
     X = dataset.data
     y = dataset.target
     print(Counter(y))
 
-    cv = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
-    # cv = RepeatedStratifiedKFold(n_repeats=5, n_splits=10, random_state=42)
+    # cv = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
+    cv = RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=42)
     dic = {'recall': [], 'precision': [], 'f1': [], 'auc': [], 'gmean': []}
     results = prettytable.PrettyTable(["Classifier", "Precision", 'Recall', 'F-measure', 'AUC', 'G-mean'])
     for train, test in cv.split(X, y):
-        # 预处理
+        # preprocess
         scaler = preprocessing.MinMaxScaler().fit(X[train])
         X_train_minmax = scaler.transform(X[train])
         X_test_minmax = scaler.transform(X[test])
-        # 训练
+        # initialize sampler
         sb = SMOTE(N=100, k_neighbors=5, random_state=42)
-        # 预测
-        # X_res, y_res = sb.fit_sample(X_train_minmax, y[train])
-
-        # model = tree.DecisionTreeClassifier(max_depth=8, min_samples_split=10, random_state=42)
-        model = svm.SVC(class_weight={1: 20})
-        model.fit(X_train_minmax, y[train])
+        # sampling
+        X_res, y_res = sb.fit_sample(X_train_minmax, y[train])
+        # initialize classifier
+        model = tree.DecisionTreeClassifier(max_depth=8, min_samples_split=10, random_state=42)
+        # model = svm.SVC(class_weight={1: 20})
+        model.fit(X_res, y_res)
         predict = model.predict(X_test_minmax)
-        # probability = model.predict_proba(X_test_minmax)[:, 1]
+        probability = model.predict_proba(X_test_minmax)[:, 1]
 
         precision = metrics.precision_score(y[test], predict)
         recall = metrics.recall_score(y[test], predict)
@@ -109,19 +109,19 @@ if __name__ == '__main__':
             f1 = 0
         else:
             f1 = 2 * (precision * recall) / (precision + recall)
-        # auc = metrics.roc_auc_score(y[test], probability)
+        auc = metrics.roc_auc_score(y[test], probability)
         gmean = geometric_mean_score(y[test], predict)
         dic['precision'].append(precision)
         dic['recall'].append(recall)
         dic['f1'].append(f1)
-        dic['auc'].append(1)
+        dic['auc'].append(auc)
         dic['gmean'].append(gmean)
 
-    results.add_row(['BorderSmote',
+    results.add_row(['SMOTE',
                      np.mean(np.array(dic['precision'])),
                      np.mean(np.array(dic['recall'])),
                      np.mean(np.array(dic['f1'])),
                      np.mean(np.array(dic['auc'])),
                      np.mean(np.array(dic['gmean']))])
     print(results)
-    print('BorderSmote building id transforming took %fs!' % (time.time() - start_time))
+    print('SMOTE building id transforming took %fs!' % (time.time() - start_time))
