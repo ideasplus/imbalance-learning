@@ -133,65 +133,11 @@ record = {'CART': [0], 'SMOTE': [100, 200, 300, 400, 500],
           'Border1': [100, 200, 300, 400, 500], 'Border2': [100, 200, 300, 400, 500],
           'ADASYN': [0.1, 0.3, 0.5, 0.7, 0.9], 'Safe-level': [100, 200, 300, 400, 500]}
 
-
-# ---------------------------------------------------CART-----------------------------------------------------
-templet('CART', record['CART'][0])
-write2row('CART', record['CART'][0])
-# ---------------------------------------------------SMOTE-----------------------------------------------------
-templet('SMOTE', record['SMOTE'][0])
-write2row('SMOTE', record['SMOTE'][0])
-templet('SMOTE', record['SMOTE'][1])
-write2row('SMOTE', record['SMOTE'][1])
-templet('SMOTE', record['SMOTE'][2])
-write2row('SMOTE', record['SMOTE'][2])
-templet('SMOTE', record['SMOTE'][3])
-write2row('SMOTE', record['SMOTE'][3])
-templet('SMOTE', record['SMOTE'][4])
-write2row('SMOTE', record['SMOTE'][4])
-# ---------------------------------------------------Border1-----------------------------------------------------
-templet('Border1', record['Border1'][0])
-write2row('Border1', record['Border1'][0])
-templet('Border1', record['Border1'][1])
-write2row('Border1', record['Border1'][1])
-templet('Border1', record['Border1'][2])
-write2row('Border1', record['Border1'][2])
-templet('Border1', record['Border1'][3])
-write2row('Border1', record['Border1'][3])
-templet('Border1', record['Border1'][4])
-write2row('Border1', record['Border1'][4])
-# ---------------------------------------------------Border2-----------------------------------------------------
-templet('Border2', record['Border2'][0])
-write2row('Border2', record['Border2'][0])
-templet('Border2', record['Border2'][1])
-write2row('Border2', record['Border2'][1])
-templet('Border2', record['Border2'][2])
-write2row('Border2', record['Border2'][2])
-templet('Border2', record['Border2'][3])
-write2row('Border2', record['Border2'][3])
-templet('Border2', record['Border2'][4])
-write2row('Border2', record['Border2'][4])
-# # ---------------------------------------------------ADASYN-----------------------------------------------------
-templet('ADASYN', record['ADASYN'][0])
-write2row('ADASYN', record['ADASYN'][0])
-templet('ADASYN', record['ADASYN'][1])
-write2row('ADASYN', record['ADASYN'][1])
-templet('ADASYN', record['ADASYN'][2])
-write2row('ADASYN', record['ADASYN'][2])
-templet('ADASYN', record['ADASYN'][3])
-write2row('ADASYN', record['ADASYN'][3])
-templet('ADASYN', record['ADASYN'][4])
-write2row('ADASYN', record['ADASYN'][4])
-# # ---------------------------------------------------Safe-Level-----------------------------------------------------
-templet('Safe-level', record['Safe-level'][0])
-write2row('Safe-level', record['Safe-level'][0])
-templet('Safe-level', record['Safe-level'][1])
-write2row('Safe-level', record['Safe-level'][1])
-templet('Safe-level', record['Safe-level'][2])
-write2row('Safe-level', record['Safe-level'][2])
-templet('Safe-level', record['Safe-level'][3])
-write2row('Safe-level', record['Safe-level'][3])
-templet('Safe-level', record['Safe-level'][4])
-write2row('Safe-level', record['Safe-level'][4])
+# 输出
+for key, value in record.items():
+    for ratio in value:
+        templet(key, ratio)
+        write2row(key, ratio)
 
 print(results)
 
