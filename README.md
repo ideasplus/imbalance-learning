@@ -16,4 +16,4 @@ There are some algorithms for learning from imbalanced data,including over-sampl
   * BalanceCascade
   * RUSBoost
   
-P.S. some of algorithms are do some opitimization based other people's implementation.
+P.S. Some of algorithms did some opitimization based other people's implementation.
