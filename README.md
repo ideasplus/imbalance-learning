@@ -1,6 +1,7 @@
 # imbalance-learning
-There are some algorithms for learning from imbalanced data,including over-sampling,under-sampling and boosting
-## 1.oversampling
+There are some algorithm implementations for learning from imbalanced data, including over-sampling, under-sampling, and boosting.
+
+## 1. Oversampling
   * RandomOverSampling
   * SMOTE
   * Borderline-SMOTE1 and Borderline-SMOTE2
@@ -8,12 +9,14 @@ There are some algorithms for learning from imbalanced data,including over-sampl
   * Safe-Level-SMOTE
   * MWMOTE
   * CGMOS
-## 2.undersampling
+
+## 2. Undersampling
   * RandomUnderSampling
-## 3.boosting
+    
+## 3. Boosting
   * SMOTEBoost
   * EasyEnsemble
   * BalanceCascade
   * RUSBoost
   
-P.S. Some of algorithms are rewritten and do some opitimization based other people's implementation.
+P.S. Some of the implementations are rewritten or further optimized based on the original author's codes. 
